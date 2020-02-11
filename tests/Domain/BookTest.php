@@ -31,7 +31,7 @@ final class BookTest extends TestCase
 
         $this->whenWeAskForItsId();
 
-        $this->thenItShouldReturn('123');
+        $this->thenItShouldReturn('1234');
     }
 
     /** @test */
