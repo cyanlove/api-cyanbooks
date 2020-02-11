@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace CyanLove\CyanBooks;
+namespace CyanBooks\Test\Book\Domain;
 
-use CyanLove\CyanBooks\Book;
+use CyanBooks\Book\Domain\Book;
 use PHPUnit\Framework\TestCase;
 
 final class BookTest extends TestCase

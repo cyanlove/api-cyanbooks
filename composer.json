@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "CyanLove\\CyanBooks\\": "src/"
+            "CyanBooks\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CyanLove\\CyanBooks\\": "tests/"
+            "CyanBooks\\Test\\": "tests/"
         }
     },
     "minimum-stability": "stable",

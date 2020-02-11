@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace CyanLove\CyanBooks;
+namespace CyanBooks\Book\Domain;
 
 final class Book
 {
@@ -34,5 +34,4 @@ final class Book
     {
         return $this->isbn;
     }
-    
 }
