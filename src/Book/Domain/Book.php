@@ -4,33 +4,33 @@ namespace CyanBooks\Book\Domain;
 
 final class Book
 {
-    /** @var string */
+    /** @var BookId */
     private $id;
 
-    /** @var string */
+    /** @var BookTitle */
     private $title;
 
-    /** @var string */
+    /** @var Isbn */
     private $isbn;
 
-    public function __construct(string $id, string $title, string $isbn)
+    public function __construct(BookId $id, BookTitle $title, Isbn $isbn)
     {
         $this->id = $id;
         $this->title = $title;
         $this->isbn = $isbn;
     }
 
-    public function id(): string
+    public function id(): BookId
     {
         return $this->id;
     }
 
-    public function title(): string
+    public function title(): BookTitle
     {
         return $this->title;
     }
 
-    public function isbn(): string
+    public function isbn(): Isbn
     {
         return $this->isbn;
     }

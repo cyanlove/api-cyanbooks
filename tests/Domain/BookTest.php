@@ -3,6 +3,9 @@
 namespace CyanBooks\Test\Book\Domain;
 
 use CyanBooks\Book\Domain\Book;
+use CyanBooks\Book\Domain\Isbn;
+use CyanBooks\Book\Domain\BookId;
+use CyanBooks\Book\Domain\BookTitle;
 use PHPUnit\Framework\TestCase;
 
 final class BookTest extends TestCase
@@ -53,7 +56,11 @@ final class BookTest extends TestCase
 
     private function givenABookWith(string $id, string $title, string $isbn)
     {
-        $this->book = new Book($id, $title, $isbn);
+        $this->book = new Book(
+            new BookId($id),
+            new BookTitle($title),
+            new Isbn($isbn)
+        );
     }
 
     private function whenWeAskForItsId()
@@ -73,6 +80,6 @@ final class BookTest extends TestCase
 
     private function thenItShouldReturn(string $value)
     {
-        $this->assertEquals($value, $this->value);
+        $this->assertEquals($value, (string) $this->value);
     }
 }
