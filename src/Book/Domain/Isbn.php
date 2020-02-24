@@ -6,7 +6,7 @@ use CyanBooks\Shared\Domain\StringValueObject;
 
 final class Isbn extends StringValueObject
 {
-    protected function validate(string $value)
+    protected function validate(string $value): void
     {
         if (!$this->isValid($value)) {
             throw new \InvalidArgumentException('Invalid Isbn');

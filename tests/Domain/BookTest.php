@@ -6,7 +6,7 @@ use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
 use CyanBooks\Book\Domain\BookId;
 use CyanBooks\Book\Domain\BookTitle;
-use PHPUnit\Framework\TestCase;
+use CyanBooks\Test\Book\Shared\TestCase;
 
 final class BookTest extends TestCase
 {
@@ -16,18 +16,10 @@ final class BookTest extends TestCase
     /** @var string */
     private $value;
 
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        $this->book = null;
-        $this->value = null;
-    }
-
     /** @test */
-    public function itShouldReturnItsId()
+    public function itShouldReturnItsId(): void
     {
-        $this->givenABookWith('123', 'Moby Dick', '978-9-6611-5391-1');
+        $this->givenABookWithId('123');
 
         $this->whenWeAskForItsId();
 
@@ -35,50 +27,68 @@ final class BookTest extends TestCase
     }
 
     /** @test */
-    public function itShouldReturnItsTitle()
+    public function itShouldReturnItsTitle(): void
     {
-        $this->givenABookWith('123', 'Moby Dick', '978-9-6611-5391-1');
+        $this->givenABookWithTitle('¿Por qué Pol Colomo y no Juan Palomo?');
 
         $this->whenWeAskForItsTitle();
 
-        $this->thenItShouldReturn('Moby Dick');
+        $this->thenItShouldReturn('¿Por qué Pol Colomo y no Juan Palomo?');
     }
 
     /** @test */
-    public function itShouldReturnItsIsbn()
+    public function itShouldReturnItsIsbn(): void
     {
-        $this->givenABookWith('123', 'Moby Dick', '978-9-6611-5391-1');
+        $this->givenABookWithIsbn('978-9-6611-5391-1');
 
         $this->whenWeAskForItsIsbn();
 
         $this->thenItShouldReturn('978-9-6611-5391-1');
     }
 
-    private function givenABookWith(string $id, string $title, string $isbn)
+    private function givenABookWithId(string $id): void
     {
-        $this->book = new Book(
-            new BookId($id),
-            new BookTitle($title),
-            new Isbn($isbn)
+        $this->book = $this->aBookWith($id);
+    }
+
+    private function givenABookWithTitle(string $title): void
+    {
+        $this->book = $this->aBookWith(null, $title);
+    }
+
+    private function givenABookWithIsbn(string $isbn): void
+    {
+        $this->book = $this->aBookWith(null, null, $isbn);
+    }
+
+    private function aBookWith(
+        string $id = null,
+        string $title = null,
+        string $isbn = null
+    ): Book {
+        return new Book(
+            new BookId($id ?? '123'),
+            new BookTitle($title ?? 'Cuando Pol Colomo entra en tu vida'),
+            new Isbn($isbn ?? '978-9-6611-5391-1')
         );
     }
 
-    private function whenWeAskForItsId()
+    private function whenWeAskForItsId(): void
     {
         $this->value = $this->book->id();
     }
 
-    private function whenWeAskForItsTitle()
+    private function whenWeAskForItsTitle(): void
     {
         $this->value = $this->book->title();
     }
 
-    private function whenWeAskForItsIsbn()
+    private function whenWeAskForItsIsbn(): void
     {
         $this->value = $this->book->isbn();
     }
 
-    private function thenItShouldReturn(string $value)
+    private function thenItShouldReturn(string $value): void
     {
         $this->assertEquals($value, (string) $this->value);
     }

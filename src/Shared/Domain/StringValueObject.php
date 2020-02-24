@@ -31,5 +31,5 @@ abstract class StringValueObject
      * @throws \InvalidArgumentException
      * @return void
      */
-    abstract protected function validate(string $value);
+    abstract protected function validate(string $value): void;
 }

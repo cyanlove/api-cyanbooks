@@ -4,12 +4,12 @@ namespace CyanBooks\Book\Domain;
 
 final class BookCollection
 {
-    /* @var array */
-    private $books;
+    /* @var ArrayObject */
+    private $collection;
 
     private function __construct()
     {
-        $this->books = new \ArrayObject();
+        $this->collection = new \ArrayObject();
     }
 
     public static function create(Book ...$books): BookCollection
@@ -21,18 +21,18 @@ final class BookCollection
         return $collection;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
-        return array_values((array) $this->books);
+        return array_values((array) $this->collection);
     }
 
-    private function add(Book $book)
+    private function add(Book $book): void
     {
         $this->ensureBookIsNotDuplicated($book);
-        $this->books->offsetSet($book->id()->value(), $book);
+        $this->saveBook($book);
     }
 
-    private function ensureBookIsNotDuplicated(Book $book)
+    private function ensureBookIsNotDuplicated(Book $book): void
     {
         if ($this->alreadyExists($book->id())) {
             throw new \Exception(
@@ -46,6 +46,12 @@ final class BookCollection
 
     private function alreadyExists(BookId $bookId): bool
     {
-        return $this->books->offsetExists($bookId->value());
+        return $this->collection->offsetExists($bookId->value());
+    }
+
+    private function saveBook(Book $book): void
+    {
+        $id = $book->id()->value();
+        $this->collection->offsetSet($id, $book);
     }
 }
