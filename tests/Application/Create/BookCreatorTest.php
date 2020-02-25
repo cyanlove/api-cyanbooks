@@ -1,14 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Test\Book\Application;
+namespace CyanBooks\Test\Book\Application\Create;
 
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
 use CyanBooks\Book\Domain\BookId;
 use CyanBooks\Book\Domain\BookTitle;
 use CyanBooks\Book\Domain\BookRepository;
-use CyanBooks\Book\Application\BookCreator;
-use CyanBooks\Book\Application\BookCreatorCommand;
+use CyanBooks\Book\Application\Create\BookCreator;
+use CyanBooks\Book\Application\Create\BookCreatorCommand;
 use CyanBooks\Test\Book\Shared\TestCase;
 
 final class BookCreatorTest extends TestCase
