@@ -5,6 +5,7 @@ namespace CyanBooks\Book\Infrastructure;
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\BookId;
 use CyanBooks\Book\Domain\BookRepository;
+use CyanBooks\Book\Domain\DuplicatedBook;
 
 final class InMemoryBookRepository implements BookRepository
 {
@@ -32,12 +33,7 @@ final class InMemoryBookRepository implements BookRepository
     private function ensureBookIsNotDuplicated(Book $book): void
     {
         if ($this->alreadyExists($book->id())) {
-            throw new \Exception(
-                sprintf(
-                    'Book with Id <%s> already exists in this repository.',
-                    $book->id()->value()
-                )
-            );
+            throw DuplicatedBook::withId($book->id(), self::class);
         }
     }
 

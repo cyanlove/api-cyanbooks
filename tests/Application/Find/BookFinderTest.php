@@ -7,10 +7,10 @@ use CyanBooks\Book\Domain\Isbn;
 use CyanBooks\Book\Domain\BookId;
 use CyanBooks\Book\Domain\BookTitle;
 use CyanBooks\Book\Domain\BookRepository;
+use CyanBooks\Book\Domain\BookNotExists;
 use CyanBooks\Book\Application\Find\BookFinder;
 use CyanBooks\Book\Application\Find\BookFinderQuery;
 use CyanBooks\Test\Book\Shared\TestCase;
-use Exception;
 
 final class BookFinderTest extends TestCase
 {
@@ -57,7 +57,7 @@ final class BookFinderTest extends TestCase
             ->with($this->similarTo($query->id()))
             ->andReturnNull();
 
-        $this->expectException(Exception::class);
+        $this->expectException(BookNotExists::class);
 
         $this->finder->execute($query);
     }

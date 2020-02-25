@@ -2,13 +2,13 @@
 
 namespace CyanBooks\Test\Book\Infrastructure;
 
-use Exception;
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
 use CyanBooks\Book\Domain\BookId;
 use CyanBooks\Book\Domain\BookTitle;
-use CyanBooks\Test\Book\Shared\TestCase;
+use CyanBooks\Book\Domain\DuplicatedBook;
 use CyanBooks\Book\Infrastructure\InMemoryBookRepository;
+use CyanBooks\Test\Book\Shared\TestCase;
 
 final class InMemoryBookRepositoryTest extends TestCase
 {
@@ -45,7 +45,7 @@ final class InMemoryBookRepositoryTest extends TestCase
 
         $this->repository->save($book);
 
-        $this->expectException(Exception::class);
+        $this->expectException(DuplicatedBook::class);
         
         $this->repository->save($book);
     }

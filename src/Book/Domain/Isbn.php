@@ -9,7 +9,7 @@ final class Isbn extends StringValueObject
     protected function validate(string $value): void
     {
         if (!$this->isValid($value)) {
-            throw new \InvalidArgumentException('Invalid Isbn');
+            throw InvalidIsbn::withValue($value);
         }
     }
 

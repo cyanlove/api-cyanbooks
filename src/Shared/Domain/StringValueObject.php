@@ -28,7 +28,7 @@ abstract class StringValueObject
      * required parameters.
      *
      * @param string $value
-     * @throws \InvalidArgumentException
+     * @throws InvalidStringValueObject
      * @return void
      */
     abstract protected function validate(string $value): void;

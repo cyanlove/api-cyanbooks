@@ -9,7 +9,7 @@ final class BookTitle extends StringValueObject
     protected function validate(string $value): void
     {
         if (!$this->isValid($value)) {
-            throw new \InvalidArgumentException('Invalid Book Title');
+            throw InvalidBookTitle::withValue($value);
         }
     }
 

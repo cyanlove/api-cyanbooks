@@ -4,8 +4,8 @@ namespace CyanBooks\Book\Application\Find;
 
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\BookId;
+use CyanBooks\Book\Domain\BookNotExists;
 use CyanBooks\Book\Domain\BookRepository;
-use Exception;
 
 final class BookFinder
 {
@@ -23,7 +23,7 @@ final class BookFinder
         $book = $this->repository->search($id);
 
         if (null === $book) {
-            throw new Exception('Book with id '.$id->value().' does not exist');
+            throw BookNotExists::withId($id);
         }
 
         return $book;

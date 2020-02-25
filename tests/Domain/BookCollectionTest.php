@@ -2,14 +2,14 @@
 
 namespace CyanBooks\Test\Book\Domain;
 
-use Exception;
 use TypeError;
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
 use CyanBooks\Book\Domain\BookId;
 use CyanBooks\Book\Domain\BookTitle;
-use CyanBooks\Test\Book\Shared\TestCase;
 use CyanBooks\Book\Domain\BookCollection;
+use CyanBooks\Book\Domain\DuplicatedBook;
+use CyanBooks\Test\Book\Shared\TestCase;
 
 final class BookCollectionTest extends TestCase
 {
@@ -45,7 +45,7 @@ final class BookCollectionTest extends TestCase
 
         $this->givenTheElements([$book, $book]);
 
-        $this->thenItShouldThrow(Exception::class);
+        $this->thenItShouldThrow(DuplicatedBook::class);
         
         $this->whenWeAddThemToTheCollection();
     }

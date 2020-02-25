@@ -35,12 +35,7 @@ final class BookCollection
     private function ensureBookIsNotDuplicated(Book $book): void
     {
         if ($this->alreadyExists($book->id())) {
-            throw new \Exception(
-                sprintf(
-                    'Book with Id <%s> already exists in this collection.',
-                    $book->id()->value()
-                )
-            );
+            throw DuplicatedBook::withId($book->id(), self::class);
         }
     }
 
