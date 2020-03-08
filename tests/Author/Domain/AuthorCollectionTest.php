@@ -1,14 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Test\Book\Domain;
+namespace CyanBooks\Test\Author\Domain;
 
+use CyanBooks\Author\Domain\Author;
+use CyanBooks\Author\Domain\AuthorName;
+use CyanBooks\Author\Domain\AuthorCollection;
+use CyanBooks\Author\Domain\DuplicatedAuthor;
+use CyanBooks\Shared\Author\Domain\AuthorId;
+use CyanBooks\Test\Shared\TestCase;
 use TypeError;
-use CyanBooks\Book\Domain\Author\Author;
-use CyanBooks\Book\Domain\Author\AuthorId;
-use CyanBooks\Book\Domain\Author\AuthorName;
-use CyanBooks\Test\Book\Shared\TestCase;
-use CyanBooks\Book\Domain\Author\AuthorCollection;
-use CyanBooks\Book\Domain\Author\DuplicatedAuthor;
 
 final class AuthorCollectionTest extends TestCase
 {
@@ -38,7 +38,7 @@ final class AuthorCollectionTest extends TestCase
     }
 
     /** @test */
-    public function itShouldThrowAnExceptionWhenAddingAnExistingBook(): void
+    public function itShouldThrowAnExceptionWhenAddingAnExistingAuthor(): void
     {
         $author = $this->anAuthorWithId('1');
 
@@ -50,7 +50,7 @@ final class AuthorCollectionTest extends TestCase
     }
 
     /** @test */
-    public function itShouldThrowAnExceptionWhenAddingSomethingThatIsNotanAuthorWithId(): void
+    public function itShouldThrowAnExceptionWhenAddingSomethingThatIsNotAnAuthorId(): void
     {
         $this->givenTheElements(['foo']);
 

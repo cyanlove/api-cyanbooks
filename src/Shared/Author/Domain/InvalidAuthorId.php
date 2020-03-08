@@ -1,10 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Book\Domain\Author;
+namespace CyanBooks\Shared\Author\Domain;
 
 use CyanBooks\Shared\Domain\InvalidStringValueObject;
 
-final class InvalidBookId extends InvalidStringValueObject
+final class InvalidAuthorId extends InvalidStringValueObject
 {
     protected static function message(string $id): string
     {

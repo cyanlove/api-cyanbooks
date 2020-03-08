@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Book\Domain\Author;
+namespace CyanBooks\Author\Domain;
 
+use CyanBooks\Shared\Author\Domain\AuthorId;
 use Exception;
 
 final class DuplicatedAuthor extends Exception

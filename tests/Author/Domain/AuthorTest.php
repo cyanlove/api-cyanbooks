@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Test\Book\Domain;
+namespace CyanBooks\Test\Author\Domain;
 
-use CyanBooks\Book\Domain\Author\Author;
-use CyanBooks\Book\Domain\Author\AuthorId;
-use CyanBooks\Book\Domain\Author\AuthorName;
-use CyanBooks\Test\Book\Shared\TestCase;
+use CyanBooks\Author\Domain\Author;
+use CyanBooks\Author\Domain\AuthorName;
+use CyanBooks\Shared\Author\Domain\AuthorId;
+use CyanBooks\Test\Shared\TestCase;
 
 final class AuthorTest extends TestCase
 {

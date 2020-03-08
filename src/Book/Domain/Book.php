@@ -2,8 +2,7 @@
 
 namespace CyanBooks\Book\Domain;
 
-use CyanBooks\Book\Domain\Author\Author;
-use CyanBooks\Book\Domain\Author\AuthorCollection;
+use CyanBooks\Shared\Author\Domain\AuthorId;
 
 final class Book
 {
@@ -16,19 +15,19 @@ final class Book
     /** @var Isbn */
     private $isbn;
 
-    /** @var AuthorCollection */
+    /** @var AuthorIdCollection */
     private $authors;
 
     public function __construct(
         BookId $id,
         BookTitle $title,
         Isbn $isbn,
-        Author $author
+        AuthorIdCollection $authors
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->isbn = $isbn;
-        $this->authors = AuthorCollection::create($author);
+        $this->authors = $authors;
     }
 
     public function id(): BookId
@@ -46,26 +45,28 @@ final class Book
         return $this->isbn;
     }
 
-    public function authors(): AuthorCollection
+    public function authors(): AuthorIdCollection
     {
         return $this->authors;
     }
 
-    public function writtenBy(Author $author): void
+    public function writtenBy(AuthorId $authorId): void
     {
-        $this->authors = AuthorCollection::create(
-            $author,
-            ...$this->authors()->toArray()
+        $this->authors = AuthorIdCollection::create(
+            ...array_merge(
+                $this->authors()->toArray(),
+                [$authorId]
+            )
         );
     }
 
-    public function notWrittenBy(Author $author): void
+    public function notWrittenBy(AuthorId $authorId): void
     {
-        $authors = $this->authors()->toArray();
-        if (in_array($author, $authors, true)) {
-            $key = array_keys($authors, $author, true);
-            unset($authors[reset($key)]);
-            $this->authors = AuthorCollection::create(...$authors);
+        $authorIds = $this->authors()->toArray();
+        $key = array_search((string) $authorId, $authorIds);
+        if (null !== $key) {
+            unset($authorIds[$key]);
+            $this->authors = AuthorIdCollection::create(...$authorIds);
         }
     }
 }

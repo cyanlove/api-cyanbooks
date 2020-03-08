@@ -6,11 +6,9 @@ use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
 use CyanBooks\Book\Domain\BookId;
 use CyanBooks\Book\Domain\BookTitle;
-use CyanBooks\Book\Domain\Author\Author;
-use CyanBooks\Test\Book\Shared\TestCase;
-use CyanBooks\Book\Domain\Author\AuthorId;
-use CyanBooks\Book\Domain\Author\AuthorName;
-use CyanBooks\Book\Domain\Author\AuthorCollection;
+use CyanBooks\Book\Domain\AuthorIdCollection;
+use CyanBooks\Shared\Author\Domain\AuthorId;
+use CyanBooks\Test\Shared\TestCase;
 
 final class BookTest extends TestCase
 {
@@ -53,61 +51,53 @@ final class BookTest extends TestCase
     /** @test */
     public function itShouldReturnItsAuthors(): void
     {
-        $author = new Author(
-            new AuthorId('123'),
-            new AuthorName('Uri Ustrell')
-        );
+        $id = (string) random_int(1,99);
 
-        $this->givenABookWithAuthors($author);
+        $this->givenABookWithAuthors($id);
 
         $this->whenWeAskForItsAuthors();
 
         $this->thenItShouldReturnSimilar(
-            AuthorCollection::create($author)
+            AuthorIdCollection::create(
+                new AuthorId($id)
+            )
         );
     }
 
     /** @test */
     public function itShouldAddAnAuthor(): void
     {
-        $uri = new Author(
-            new AuthorId('123'),
-            new AuthorName('Uri Ustrell')
-        );
+        $uri = 'Uri Ustrell';
 
-        $pol = new Author(
-            new AuthorId('456'),
-            new AuthorName('Pol Colomo')
-        );
+        $pol = 'Pol Colomo';
 
         $this->givenABookWithAuthors($uri);
 
         $this->whenWeAddAuthor($pol);
 
         $this->thenItShouldReturnSimilar(
-            AuthorCollection::create($uri, $pol)
+            AuthorIdCollection::create(
+                new AuthorId($uri),
+                new AuthorId($pol)
+            )
         );
     }
 
     /** @test */
     public function itShouldRemoveAnAuthor(): void
     {
-        $uri = new Author(
-            new AuthorId('123'),
-            new AuthorName('Uri Ustrell')
-        );
+        $uri = 'Uri Ustrell';
 
-        $pol = new Author(
-            new AuthorId('456'),
-            new AuthorName('Pol Colomo')
-        );
+        $pol = 'Pol Colomo';
 
         $this->givenABookWithAuthors($uri, $pol);
 
         $this->whenWeRemoveAuthor($pol);
 
         $this->thenItShouldReturnSimilar(
-            AuthorCollection::create($uri)
+            AuthorIdCollection::create(
+                new AuthorId($uri)
+            )
         );
     }
 
@@ -126,32 +116,44 @@ final class BookTest extends TestCase
         $this->book = $this->aBookWith(null, null, $isbn);
     }
 
-    private function givenABookWithAuthors(Author ...$authors): void
+    private function givenABookWithAuthors(string ...$authors): void
     {
-        $anAuthor = array_pop($authors);
-        $this->book = $this->aBookWith(null, null, null, $anAuthor);
-        foreach ($authors as $author) {
-            if ($anAuthor == $author) {
-                $this->assertFalse(true);
-            }
-            $this->book->writtenBy($author);
-        }
+        $authors = is_array($authors) ? $authors : [$authors];
+        $this->book = $this->aBookWith(null, null, null, $authors);
     }
 
     private function aBookWith(
         string $id = null,
         string $title = null,
         string $isbn = null,
-        Author $author = null
+        array $authorIds = []
     ): Book {
         return new Book(
             new BookId($id ?? '123'),
             new BookTitle($title ?? 'Cuando Pol Colomo entra en tu vida'),
             new Isbn($isbn ?? '978-9-6611-5391-1'),
-            $author ?? new Author(
-                new AuthorId('123'),
-                new AuthorName('Uri Ustrell')
+            AuthorIdCollection::create(
+                ...$this->aBunchOfAuthorIds($authorIds)
             )
+        );
+    }
+
+    private function aBunchOfAuthorIds(array $ids): array
+    {
+        if (empty($ids)) {
+            return [
+                new AuthorId('1'),
+                new AuthorId('2'),
+                new AuthorId('3'),
+                new AuthorId('4'),
+                new AuthorId('5'),
+            ];
+        }
+        return array_map(
+            function($id) {
+                return new AuthorId($id);
+            },
+            $ids
         );
     }
 
@@ -175,15 +177,15 @@ final class BookTest extends TestCase
         $this->value = $this->book->authors();
     }
 
-    private function whenWeAddAuthor(Author $author): void
+    private function whenWeAddAuthor(string $author): void
     {
-        $this->book->writtenBy($author);
+        $this->book->writtenBy(new AuthorId($author));
         $this->value = $this->book->authors();
     }
 
-    private function whenWeRemoveAuthor(Author $author): void
+    private function whenWeRemoveAuthor(string $author): void
     {
-        $this->book->notWrittenBy($author);
+        $this->book->notWrittenBy(new AuthorId($author));
         $this->value = $this->book->authors();
     }
 

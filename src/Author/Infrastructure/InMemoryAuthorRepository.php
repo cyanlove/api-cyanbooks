@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Book\Infrastructure;
+namespace CyanBooks\Author\Infrastructure;
 
-use CyanBooks\Book\Domain\Author\Author;
-use CyanBooks\Book\Domain\Author\AuthorId;
-use CyanBooks\Book\Domain\Author\AuthorRepository;
-use CyanBooks\Book\Domain\Author\DuplicatedAuthor;
+use CyanBooks\Author\Domain\Author;
+use CyanBooks\Author\Domain\AuthorRepository;
+use CyanBooks\Author\Domain\DuplicatedAuthor;
+use CyanBooks\Shared\Author\Domain\AuthorId;
 
 final class InMemoryAuthorRepository implements AuthorRepository
 {

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Test\Book\Shared;
+namespace CyanBooks\Test\Shared;
 
 use Mockery;
 use Mockery\MockInterface;

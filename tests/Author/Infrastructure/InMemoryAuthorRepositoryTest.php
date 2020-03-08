@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Test\Book\Infrastructure;
+namespace CyanBooks\Test\Author\Infrastructure;
 
-use CyanBooks\Book\Domain\Author\Author;
-use CyanBooks\Book\Domain\Author\AuthorId;
-use CyanBooks\Book\Domain\Author\AuthorName;
-use CyanBooks\Book\Domain\Author\DuplicatedAuthor;
-use CyanBooks\Test\Book\Shared\TestCase;
-use CyanBooks\Book\Infrastructure\InMemoryAuthorRepository;
+use CyanBooks\Author\Domain\Author;
+use CyanBooks\Author\Domain\AuthorName;
+use CyanBooks\Author\Domain\DuplicatedAuthor;
+use CyanBooks\Author\Infrastructure\InMemoryAuthorRepository;
+use CyanBooks\Shared\Author\Domain\AuthorId;
+use CyanBooks\Test\Shared\TestCase;
 
 final class InMemoryAuthorRepositoryTest extends TestCase
 {
@@ -33,7 +33,7 @@ final class InMemoryAuthorRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function itShouldNotSaveABookWithExistingId(): void
+    public function itShouldNotSaveAnAuthorWithExistingId(): void
     {
         $author = new Author(
             new AuthorId('7'),
@@ -48,7 +48,7 @@ final class InMemoryAuthorRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function itShouldReturnAnExistingBook(): void
+    public function itShouldReturnAnExistingAuthor(): void
     {
         $author = new Author(
             new AuthorId('10'),
@@ -61,7 +61,7 @@ final class InMemoryAuthorRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function itShouldNotReturnANonExistingBook(): void
+    public function itShouldNotReturnANonExistingAuthor(): void
     {
         $this->assertNull($this->repository->search(new AuthorId('1')));
     }

@@ -4,13 +4,12 @@ namespace CyanBooks\Book\Application\Create;
 
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
-use CyanBooks\Book\Domain\Author\Author;
 use CyanBooks\Book\Domain\BookId;
-use CyanBooks\Book\Domain\Author\AuthorId;
 use CyanBooks\Book\Domain\BookTitle;
-use CyanBooks\Book\Domain\Author\AuthorName;
 use CyanBooks\Book\Domain\BookRepository;
+use CyanBooks\Book\Domain\AuthorIdCollection;
 use CyanBooks\Book\Application\Create\BookCreatorCommand;
+use CyanBooks\Shared\Author\Domain\AuthorId;
 
 final class BookCreator
 {
@@ -27,9 +26,13 @@ final class BookCreator
             new BookId($command->id()),
             new BookTitle($command->title()),
             new Isbn($command->isbn()),
-            new Author(
-                new AuthorId($command->authorId()),
-                new AuthorName($command->authorName())
+            AuthorIdCollection::create(
+                ...array_map(
+                    function($authorId) {
+                        return new AuthorId($authorId);
+                    },
+                    $command->authorIds()
+                )
             )
         );
 

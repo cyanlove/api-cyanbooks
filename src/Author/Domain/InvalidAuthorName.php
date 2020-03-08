@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Book\Domain\Author;
+namespace CyanBooks\Author\Domain;
 
 use CyanBooks\Shared\Domain\InvalidStringValueObject;
 

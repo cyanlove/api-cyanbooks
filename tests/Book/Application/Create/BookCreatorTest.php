@@ -4,15 +4,14 @@ namespace CyanBooks\Test\Book\Application\Create;
 
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
-use CyanBooks\Book\Domain\Author\Author;
 use CyanBooks\Book\Domain\BookId;
-use CyanBooks\Book\Domain\Author\AuthorId;
 use CyanBooks\Book\Domain\BookTitle;
-use CyanBooks\Book\Domain\Author\AuthorName;
-use CyanBooks\Test\Book\Shared\TestCase;
 use CyanBooks\Book\Domain\BookRepository;
+use CyanBooks\Book\Domain\AuthorIdCollection;
 use CyanBooks\Book\Application\Create\BookCreator;
 use CyanBooks\Book\Application\Create\BookCreatorCommand;
+use CyanBooks\Shared\Author\Domain\AuthorId;
+use CyanBooks\Test\Shared\TestCase;
 
 final class BookCreatorTest extends TestCase
 {
@@ -32,17 +31,20 @@ final class BookCreatorTest extends TestCase
             '1',
             'Un nuevo caso para: Pol Colom(b)o',
             '978-9-6611-5391-1',
-            '123',
-            'Uri Ustrell'
+            ['1', '2']
         );
 
         $book = new Book(
             new BookId($command->id()),
             new BookTitle($command->title()),
             new Isbn($command->isbn()),
-            new Author(
-                new AuthorId($command->authorId()),
-                new AuthorName($command->authorName())
+            AuthorIdCollection::create(
+                ...array_map(
+                    function($authorId) {
+                        return new AuthorId($authorId);
+                    },
+                    $command->authorIds()
+                )
             )
         );
 

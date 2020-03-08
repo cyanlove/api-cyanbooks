@@ -7,21 +7,18 @@ final class BookCreatorCommand
     private $id;
     private $title;
     private $isbn;
-    private $authorId;
-    private $authorName;
+    private $authorIds;
 
     public function __construct(
         string $id,
         string $title,
         string $isbn,
-        string $authorId,
-        string $authorName
+        array $authorIds
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->isbn = $isbn;
-        $this->authorId = $authorId;
-        $this->authorName = $authorName;
+        $this->authorIds = $authorIds;
     }
 
     public function id(): string
@@ -39,13 +36,8 @@ final class BookCreatorCommand
         return $this->isbn;
     }
 
-    public function authorId(): string
+    public function authorIds(): array
     {
-        return $this->authorId;
-    }
-
-    public function authorName(): string
-    {
-        return $this->authorName;
+        return $this->authorIds;
     }
 }

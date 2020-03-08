@@ -1,15 +1,15 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Book\Domain\Author;
+namespace CyanBooks\Shared\Author\Domain;
 
 use CyanBooks\Shared\Domain\StringValueObject;
 
-final class AuthorName extends StringValueObject
+final class AuthorId extends StringValueObject
 {
     protected function validate(string $value): void
     {
         if (!$this->isValid($value)) {
-            throw InvalidAuthorName::withValue($value);
+            throw InvalidAuthorId::withValue($value);
         }
     }
 

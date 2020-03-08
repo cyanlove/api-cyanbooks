@@ -1,6 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Book\Domain\Author;
+namespace CyanBooks\Author\Domain;
+
+use CyanBooks\Shared\Author\Domain\AuthorId;
 
 final class AuthorCollection
 {
@@ -28,11 +30,11 @@ final class AuthorCollection
 
     private function add(Author $author): void
     {
-        $this->ensureBookIsNotDuplicated($author);
-        $this->saveBook($author);
+        $this->ensureAuthorIsNotDuplicated($author);
+        $this->saveAuthor($author);
     }
 
-    private function ensureBookIsNotDuplicated(Author $author): void
+    private function ensureAuthorIsNotDuplicated(Author $author): void
     {
         if ($this->alreadyExists($author->id())) {
             throw DuplicatedAuthor::withId($author->id(), self::class);
@@ -44,7 +46,7 @@ final class AuthorCollection
         return $this->collection->offsetExists($authorId->value());
     }
 
-    private function saveBook(Author $author): void
+    private function saveAuthor(Author $author): void
     {
         $id = $author->id()->value();
         $this->collection->offsetSet($id, $author);

@@ -13,9 +13,9 @@ use CyanBooks\Shared\Author\Domain\AuthorId;
 use CyanBooks\Test\Shared\TestCase;
 use TypeError;
 
-final class BookCollectionTest extends TestCase
+final class AuthorIdCollectionTest extends TestCase
 {
-    /** @var BookCollection */
+    /** @var AuthorIdCollection */
     private $collection;
 
     /** @var array */
@@ -24,36 +24,36 @@ final class BookCollectionTest extends TestCase
     private $value;
 
     /** @test */
-    public function itShouldReturnAllBooks(): void
+    public function itShouldReturnAllAuthorIds(): void
     {
-        $books = [
-            $this->aBookWithId('1'),
-            $this->aBookWithId('2'),
-            $this->aBookWithId('3'),
-            $this->aBookWithId('4'),
+        $authorIds = [
+            new AuthorId('1'),
+            new AuthorId('2'),
+            new AuthorId('3'),
+            new AuthorId('4'),
         ];
 
-        $this->givenACollectionWith(...$books);
+        $this->givenACollectionWith(...$authorIds);
 
         $this->whenWeAskForItsElements();
 
-        $this->thenItShouldReturn($books);
+        $this->thenItShouldReturn($authorIds);
     }
 
     /** @test */
-    public function itShouldThrowAnExceptionWhenAddingAnExistingBook(): void
+    public function itShouldRemoveDuplicatedAuthorIds(): void
     {
-        $book = $this->aBookWithId('1');
+        $authorId = new AuthorId('1');
 
-        $this->givenTheElements([$book, $book]);
+        $this->givenACollectionWith($authorId, $authorId);
 
-        $this->thenItShouldThrow(DuplicatedBook::class);
+        $this->whenWeAskForItsElements();
         
-        $this->whenWeAddThemToTheCollection();
+        $this->thenItShouldReturn([$authorId]);
     }
 
     /** @test */
-    public function itShouldThrowAnExceptionWhenAddingSomethingThatIsNotABookWithId(): void
+    public function itShouldThrowAnExceptionWhenAddingSomethingThatIsNotAnAuthorId(): void
     {
         $this->givenTheElements(['foo']);
 
@@ -62,9 +62,9 @@ final class BookCollectionTest extends TestCase
         $this->whenWeAddThemToTheCollection();
     }
 
-    private function givenACollectionWith(Book ...$books): void
+    private function givenACollectionWith(AuthorId ...$authorIds): void
     {
-        $this->setCollection($books);
+        $this->setCollection($authorIds);
     }
 
     private function givenTheElements(array $elements): void
@@ -97,16 +97,6 @@ final class BookCollectionTest extends TestCase
 
     private function setCollection(array $elements): void
     {
-        $this->collection = BookCollection::create(...$elements);
-    }
-
-    private function aBookWithId(string $id): Book
-    {
-        return new Book(
-            new BookId($id),
-            new BookTitle('whatever'),
-            new Isbn('978-9-6611-5391-1'),
-            AuthorIdCollection::create(new AuthorId('1'))
-        );
+        $this->collection = AuthorIdCollection::create(...$elements);
     }
 }
