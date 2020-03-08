@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace CyanBooks\Book\Domain;
+namespace CyanBooks\Book\Domain\Author;
 
 interface AuthorRepository
 {

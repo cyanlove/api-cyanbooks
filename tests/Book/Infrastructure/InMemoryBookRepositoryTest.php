@@ -4,11 +4,14 @@ namespace CyanBooks\Test\Book\Infrastructure;
 
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
+use CyanBooks\Book\Domain\Author\Author;
 use CyanBooks\Book\Domain\BookId;
+use CyanBooks\Book\Domain\Author\AuthorId;
 use CyanBooks\Book\Domain\BookTitle;
+use CyanBooks\Book\Domain\Author\AuthorName;
+use CyanBooks\Test\Book\Shared\TestCase;
 use CyanBooks\Book\Domain\DuplicatedBook;
 use CyanBooks\Book\Infrastructure\InMemoryBookRepository;
-use CyanBooks\Test\Book\Shared\TestCase;
 
 final class InMemoryBookRepositoryTest extends TestCase
 {
@@ -26,7 +29,11 @@ final class InMemoryBookRepositoryTest extends TestCase
         $book = new Book(
             new BookId('9'),
             new BookTitle('Conviértete en maestro del póker con Pol Colomo'),
-            new Isbn('978-9-6611-5391-1')
+            new Isbn('978-9-6611-5391-1'),
+            new Author(
+                new AuthorId('123'),
+                new AuthorName('Uri Ustrell')
+            )
         );
 
         $this->repository->save($book);
@@ -40,7 +47,11 @@ final class InMemoryBookRepositoryTest extends TestCase
         $book = new Book(
             new BookId('7'),
             new BookTitle('Un nuevo caso para: Pol Colom(b)o'),
-            new Isbn('978-9-6611-5391-1')
+            new Isbn('978-9-6611-5391-1'),
+            new Author(
+                new AuthorId('123'),
+                new AuthorName('Uri Ustrell')
+            )
         );
 
         $this->repository->save($book);
@@ -56,7 +67,11 @@ final class InMemoryBookRepositoryTest extends TestCase
         $book = new Book(
             new BookId('10'),
             new BookTitle('Pol Colomo Fundamentals'),
-            new Isbn('978-9-6611-5391-1')
+            new Isbn('978-9-6611-5391-1'),
+            new Author(
+                new AuthorId('123'),
+                new AuthorName('Uri Ustrell')
+            )
         );
 
         $this->repository->save($book);

@@ -2,11 +2,11 @@
 
 namespace CyanBooks\Test\Book\Infrastructure;
 
-use CyanBooks\Book\Domain\Author;
-use CyanBooks\Book\Domain\AuthorId;
-use CyanBooks\Book\Domain\AuthorName;
+use CyanBooks\Book\Domain\Author\Author;
+use CyanBooks\Book\Domain\Author\AuthorId;
+use CyanBooks\Book\Domain\Author\AuthorName;
+use CyanBooks\Book\Domain\Author\DuplicatedAuthor;
 use CyanBooks\Test\Book\Shared\TestCase;
-use CyanBooks\Book\Domain\DuplicatedAuthor;
 use CyanBooks\Book\Infrastructure\InMemoryAuthorRepository;
 
 final class InMemoryAuthorRepositoryTest extends TestCase

@@ -2,10 +2,10 @@
 
 namespace CyanBooks\Book\Infrastructure;
 
-use CyanBooks\Book\Domain\Author;
-use CyanBooks\Book\Domain\AuthorId;
-use CyanBooks\Book\Domain\AuthorRepository;
-use CyanBooks\Book\Domain\DuplicatedAuthor;
+use CyanBooks\Book\Domain\Author\Author;
+use CyanBooks\Book\Domain\Author\AuthorId;
+use CyanBooks\Book\Domain\Author\AuthorRepository;
+use CyanBooks\Book\Domain\Author\DuplicatedAuthor;
 
 final class InMemoryAuthorRepository implements AuthorRepository
 {

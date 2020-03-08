@@ -5,11 +5,14 @@ namespace CyanBooks\Test\Book\Domain;
 use TypeError;
 use CyanBooks\Book\Domain\Book;
 use CyanBooks\Book\Domain\Isbn;
+use CyanBooks\Book\Domain\Author\Author;
 use CyanBooks\Book\Domain\BookId;
+use CyanBooks\Book\Domain\Author\AuthorId;
 use CyanBooks\Book\Domain\BookTitle;
+use CyanBooks\Book\Domain\Author\AuthorName;
+use CyanBooks\Test\Book\Shared\TestCase;
 use CyanBooks\Book\Domain\BookCollection;
 use CyanBooks\Book\Domain\DuplicatedBook;
-use CyanBooks\Test\Book\Shared\TestCase;
 
 final class BookCollectionTest extends TestCase
 {
@@ -103,7 +106,11 @@ final class BookCollectionTest extends TestCase
         return new Book(
             new BookId($id),
             new BookTitle('whatever'),
-            new Isbn('978-9-6611-5391-1')
+            new Isbn('978-9-6611-5391-1'),
+            new Author(
+                new AuthorId('123'),
+                new AuthorName('Uri Ustrell')
+            )
         );
     }
 }

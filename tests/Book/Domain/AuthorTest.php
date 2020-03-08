@@ -2,9 +2,9 @@
 
 namespace CyanBooks\Test\Book\Domain;
 
-use CyanBooks\Book\Domain\Author;
-use CyanBooks\Book\Domain\AuthorId;
-use CyanBooks\Book\Domain\AuthorName;
+use CyanBooks\Book\Domain\Author\Author;
+use CyanBooks\Book\Domain\Author\AuthorId;
+use CyanBooks\Book\Domain\Author\AuthorName;
 use CyanBooks\Test\Book\Shared\TestCase;
 
 final class AuthorTest extends TestCase
