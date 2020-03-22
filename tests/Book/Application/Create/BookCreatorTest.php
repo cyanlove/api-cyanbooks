@@ -40,7 +40,7 @@ final class BookCreatorTest extends TestCase
             new Isbn($command->isbn()),
             AuthorIdCollection::create(
                 ...array_map(
-                    function($authorId) {
+                    function ($authorId) {
                         return new AuthorId($authorId);
                     },
                     $command->authorIds()

@@ -2,14 +2,8 @@
 
 namespace CyanBooks\Test\Book\Domain;
 
-use CyanBooks\Book\Domain\Book;
-use CyanBooks\Book\Domain\Isbn;
-use CyanBooks\Book\Domain\BookId;
-use CyanBooks\Book\Domain\BookTitle;
-use CyanBooks\Book\Domain\BookCollection;
-use CyanBooks\Book\Domain\DuplicatedBook;
-use CyanBooks\Book\Domain\AuthorIdCollection;
 use CyanBooks\Shared\Author\Domain\AuthorId;
+use CyanBooks\Book\Domain\AuthorIdCollection;
 use CyanBooks\Test\Shared\TestCase;
 use TypeError;
 

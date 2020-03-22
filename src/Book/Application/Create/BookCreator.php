@@ -28,7 +28,7 @@ final class BookCreator
             new Isbn($command->isbn()),
             AuthorIdCollection::create(
                 ...array_map(
-                    function($authorId) {
+                    function ($authorId) {
                         return new AuthorId($authorId);
                     },
                     $command->authorIds()

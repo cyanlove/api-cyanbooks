@@ -51,7 +51,7 @@ final class BookTest extends TestCase
     /** @test */
     public function itShouldReturnItsAuthors(): void
     {
-        $id = (string) random_int(1,99);
+        $id = (string) random_int(1, 99);
 
         $this->givenABookWithAuthors($id);
 
@@ -150,7 +150,7 @@ final class BookTest extends TestCase
             ];
         }
         return array_map(
-            function($id) {
+            function ($id) {
                 return new AuthorId($id);
             },
             $ids
