@@ -28,7 +28,7 @@ final class BookCreatorTest extends TestCase
     public function itShouldSaveABook(): void
     {
         $command = new BookCreatorCommand(
-            '1',
+            '550e8400-e29b-41d4-a716-446655440000',
             'Un nuevo caso para: Pol Colom(b)o',
             '978-9-6611-5391-1',
             ['1', '2']

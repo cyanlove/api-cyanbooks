@@ -28,10 +28,10 @@ final class BookFinderTest extends TestCase
     /** @test */
     public function itShouldFindABook(): void
     {
-        $query = new BookFinderQuery('1');
+        $query = new BookFinderQuery('550e8400-e29b-41d4-a716-446655440000');
 
         $book = new Book(
-            new BookId('1'),
+            new BookId('550e8400-e29b-41d4-a716-446655440000'),
             new BookTitle('olakease'),
             new Isbn('978-9-6611-5391-1'),
             AuthorIdCollection::create(new AuthorId('1'))
@@ -52,7 +52,7 @@ final class BookFinderTest extends TestCase
     /** @test */
     public function itShouldThrowAnExceptionWhenItCantFindABook(): void
     {
-        $query = new BookFinderQuery('1');
+        $query = new BookFinderQuery('550e8400-e29b-41d4-a716-446655440000');
 
         $this->repository
             ->shouldReceive('search')

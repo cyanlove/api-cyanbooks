@@ -21,11 +21,11 @@ final class BookTest extends TestCase
     /** @test */
     public function itShouldReturnItsId(): void
     {
-        $this->givenABookWithId('123');
+        $this->givenABookWithId('550e8400-e29b-41d4-a716-446655440000');
 
         $this->whenWeAskForItsId();
 
-        $this->thenItShouldReturn('123');
+        $this->thenItShouldReturn('550e8400-e29b-41d4-a716-446655440000');
     }
 
     /** @test */
@@ -129,7 +129,7 @@ final class BookTest extends TestCase
         array $authorIds = []
     ): Book {
         return new Book(
-            new BookId($id ?? '123'),
+            new BookId($id ?? '550e8400-e29b-41d4-a716-446655440000'),
             new BookTitle($title ?? 'Cuando Pol Colomo entra en tu vida'),
             new Isbn($isbn ?? '978-9-6611-5391-1'),
             AuthorIdCollection::create(

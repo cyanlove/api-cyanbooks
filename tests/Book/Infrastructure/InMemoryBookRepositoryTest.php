@@ -26,7 +26,7 @@ final class InMemoryBookRepositoryTest extends TestCase
     public function itShouldSaveABook(): void
     {
         $book = new Book(
-            new BookId('9'),
+            new BookId('550e8400-e29b-41d4-a716-446655440000'),
             new BookTitle('Conviértete en maestro del póker con Pol Colomo'),
             new Isbn('978-9-6611-5391-1'),
             AuthorIdCollection::create(new AuthorId('1'))
@@ -41,7 +41,7 @@ final class InMemoryBookRepositoryTest extends TestCase
     public function itShouldNotSaveABookWithExistingId(): void
     {
         $book = new Book(
-            new BookId('7'),
+            new BookId('550e8400-e29b-41d4-a716-446655440000'),
             new BookTitle('Un nuevo caso para: Pol Colom(b)o'),
             new Isbn('978-9-6611-5391-1'),
             AuthorIdCollection::create(new AuthorId('1'))
@@ -58,7 +58,7 @@ final class InMemoryBookRepositoryTest extends TestCase
     public function itShouldReturnAnExistingBook(): void
     {
         $book = new Book(
-            new BookId('10'),
+            new BookId('550e8400-e29b-41d4-a716-446655440000'),
             new BookTitle('Pol Colomo Fundamentals'),
             new Isbn('978-9-6611-5391-1'),
             AuthorIdCollection::create(new AuthorId('1'))
@@ -72,6 +72,10 @@ final class InMemoryBookRepositoryTest extends TestCase
     /** @test */
     public function itShouldNotReturnANonExistingBook(): void
     {
-        $this->assertNull($this->repository->search(new BookId('1')));
+        $this->assertNull(
+            $this->repository->search(
+                new BookId('550e8400-e29b-41d4-a716-446655440000')
+            )
+        );
     }
 }

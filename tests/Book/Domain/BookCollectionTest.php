@@ -27,10 +27,10 @@ final class BookCollectionTest extends TestCase
     public function itShouldReturnAllBooks(): void
     {
         $books = [
-            $this->aBookWithId('1'),
-            $this->aBookWithId('2'),
-            $this->aBookWithId('3'),
-            $this->aBookWithId('4'),
+            $this->aBookWithId('550e8400-e29b-41d4-a716-446655440000'),
+            $this->aBookWithId('550e8400-e29b-41d4-a716-446655440001'),
+            $this->aBookWithId('550e8400-e29b-41d4-a716-446655440002'),
+            $this->aBookWithId('550e8400-e29b-41d4-a716-446655440003'),
         ];
 
         $this->givenACollectionWith(...$books);
@@ -43,7 +43,7 @@ final class BookCollectionTest extends TestCase
     /** @test */
     public function itShouldThrowAnExceptionWhenAddingAnExistingBook(): void
     {
-        $book = $this->aBookWithId('1');
+        $book = $this->aBookWithId('550e8400-e29b-41d4-a716-446655440000');
 
         $this->givenTheElements([$book, $book]);
 
