@@ -14,6 +14,8 @@ use CyanBooks\Test\Shared\TestCase;
 
 final class InMemoryBookRepositoryTest extends TestCase
 {
+    const VALID_ISBN = '978-9-6611-5391-1';
+
     /* @var BookRepository */
     private $repository;
 
@@ -26,10 +28,12 @@ final class InMemoryBookRepositoryTest extends TestCase
     public function itShouldSaveABook(): void
     {
         $book = new Book(
-            new BookId('550e8400-e29b-41d4-a716-446655440000'),
+            BookId::random(),
             new BookTitle('Conviértete en maestro del póker con Pol Colomo'),
-            new Isbn('978-9-6611-5391-1'),
-            AuthorIdCollection::create(new AuthorId('1'))
+            new Isbn(self::VALID_ISBN),
+            AuthorIdCollection::create(
+                AuthorId::random()
+            )
         );
 
         $this->repository->save($book);
@@ -41,10 +45,12 @@ final class InMemoryBookRepositoryTest extends TestCase
     public function itShouldNotSaveABookWithExistingId(): void
     {
         $book = new Book(
-            new BookId('550e8400-e29b-41d4-a716-446655440000'),
+            BookId::random(),
             new BookTitle('Un nuevo caso para: Pol Colom(b)o'),
-            new Isbn('978-9-6611-5391-1'),
-            AuthorIdCollection::create(new AuthorId('1'))
+            new Isbn(self::VALID_ISBN),
+            AuthorIdCollection::create(
+                AuthorId::random()
+            )
         );
 
         $this->repository->save($book);
@@ -58,10 +64,12 @@ final class InMemoryBookRepositoryTest extends TestCase
     public function itShouldReturnAnExistingBook(): void
     {
         $book = new Book(
-            new BookId('550e8400-e29b-41d4-a716-446655440000'),
+            BookId::random(),
             new BookTitle('Pol Colomo Fundamentals'),
-            new Isbn('978-9-6611-5391-1'),
-            AuthorIdCollection::create(new AuthorId('1'))
+            new Isbn(self::VALID_ISBN),
+            AuthorIdCollection::create(
+                AuthorId::random()
+            )
         );
 
         $this->repository->save($book);
@@ -74,7 +82,7 @@ final class InMemoryBookRepositoryTest extends TestCase
     {
         $this->assertNull(
             $this->repository->search(
-                new BookId('550e8400-e29b-41d4-a716-446655440000')
+                BookId::random()
             )
         );
     }

@@ -2,19 +2,13 @@
 
 namespace CyanBooks\Shared\Author\Domain;
 
-use CyanBooks\Shared\Domain\StringValueObject;
+use CyanBooks\Shared\Domain\UuidValueObject;
+use CyanBooks\Shared\Domain\InvalidUuidValueObject;
 
-final class AuthorId extends StringValueObject
+final class AuthorId extends UuidValueObject
 {
-    protected function validate(string $value): void
+    protected function exception(): InvalidUuidValueObject
     {
-        if (!$this->isValid($value)) {
-            throw InvalidAuthorId::withValue($value);
-        }
-    }
-
-    private function isValid(string $value): bool
-    {
-        return !empty($value);
+        return new InvalidAuthorId;
     }
 }

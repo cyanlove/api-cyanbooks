@@ -23,7 +23,7 @@ final class InMemoryAuthorRepositoryTest extends TestCase
     public function itShouldSaveAnAuthor(): void
     {
         $author = new Author(
-            new AuthorId('9'),
+            AuthorId::random(),
             new AuthorName('Jaco Baldrich')
         );
 
@@ -36,7 +36,7 @@ final class InMemoryAuthorRepositoryTest extends TestCase
     public function itShouldNotSaveAnAuthorWithExistingId(): void
     {
         $author = new Author(
-            new AuthorId('7'),
+            AuthorId::random(),
             new AuthorName('Uri Ustrell')
         );
 
@@ -51,7 +51,7 @@ final class InMemoryAuthorRepositoryTest extends TestCase
     public function itShouldReturnAnExistingAuthor(): void
     {
         $author = new Author(
-            new AuthorId('10'),
+            AuthorId::random(),
             new AuthorName('Pol Colomo')
         );
 
@@ -63,6 +63,10 @@ final class InMemoryAuthorRepositoryTest extends TestCase
     /** @test */
     public function itShouldNotReturnANonExistingAuthor(): void
     {
-        $this->assertNull($this->repository->search(new AuthorId('1')));
+        $this->assertNull(
+            $this->repository->search(
+                AuthorId::random()
+            )
+        );
     }
 }

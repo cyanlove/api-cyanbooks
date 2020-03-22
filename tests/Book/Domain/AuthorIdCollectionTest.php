@@ -21,10 +21,10 @@ final class AuthorIdCollectionTest extends TestCase
     public function itShouldReturnAllAuthorIds(): void
     {
         $authorIds = [
-            new AuthorId('1'),
-            new AuthorId('2'),
-            new AuthorId('3'),
-            new AuthorId('4'),
+            AuthorId::random(),
+            AuthorId::random(),
+            AuthorId::random(),
+            AuthorId::random(),
         ];
 
         $this->givenACollectionWith(...$authorIds);
@@ -37,7 +37,7 @@ final class AuthorIdCollectionTest extends TestCase
     /** @test */
     public function itShouldRemoveDuplicatedAuthorIds(): void
     {
-        $authorId = new AuthorId('1');
+        $authorId = AuthorId::random();
 
         $this->givenACollectionWith($authorId, $authorId);
 

@@ -8,33 +8,36 @@ use CyanBooks\Shared\Domain\InvalidUuidValueObject;
 
 final class AuthorIdCollectionTest extends TestCase
 {
+    const VALID_UUID = '550e8400-e29b-41d4-a716-446655440000';
+    const INVALID_UUID = 'olakease';
+
     /** @test */
-    public function itShouldCreateAValidInstanceFromAValidAUuid()
+    public function itShouldCreateAValidInstanceFromAValidAUuid(): void
     {
-        $class = $this->class('550e8400-e29b-41d4-a716-446655440000');
+        $class = $this->class(self::VALID_UUID);
 
         $this->assertInstanceOf(UuidValueObject::class, $class);
-        $this->assertEquals('550e8400-e29b-41d4-a716-446655440000', (string) $class);
+        $this->assertEquals(self::VALID_UUID, (string) $class);
     }
 
     /** @test */
-    public function itShouldThrowAnExceptionWhenCreatingAnInstanceFromANonValidAUuid()
+    public function itShouldThrowAnExceptionWhenCreatingAnInstanceFromANonValidAUuid(): void
     {
         $this->expectException(InvalidUuidValueObject::class);
-        $this->expectExceptionMessage('The uuid <olakease> does not match the expected format');
+        $this->expectExceptionMessage('The uuid <' . self::INVALID_UUID . '> does not match the expected format');
 
-        $this->class('olakease');
+        $this->class(self::INVALID_UUID);
     }
 
     /** @test */
-    public function itShouldGenerateANewValidInstanceWithARandomUuid()
+    public function itShouldGenerateANewValidInstanceWithARandomUuid(): void
     {
-        $class = $this->class('550e8400-e29b-41d4-a716-446655440000');
+        $class = $this->class(self::VALID_UUID);
 
         $random = $class::random();
 
         $this->assertInstanceOf(UuidValueObject::class, $random);
-        $this->assertNotEquals('550e8400-e29b-41d4-a716-446655440000', (string) $random);
+        $this->assertNotEquals(self::VALID_UUID, (string) $random);
     }
 
     private function class(string $uuid): UuidValueObject

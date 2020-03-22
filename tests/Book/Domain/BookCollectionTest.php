@@ -15,6 +15,8 @@ use TypeError;
 
 final class BookCollectionTest extends TestCase
 {
+    const VALID_ISBN = '978-9-6611-5391-1';
+
     /** @var BookCollection */
     private $collection;
 
@@ -27,10 +29,10 @@ final class BookCollectionTest extends TestCase
     public function itShouldReturnAllBooks(): void
     {
         $books = [
-            $this->aBookWithId('550e8400-e29b-41d4-a716-446655440000'),
-            $this->aBookWithId('550e8400-e29b-41d4-a716-446655440001'),
-            $this->aBookWithId('550e8400-e29b-41d4-a716-446655440002'),
-            $this->aBookWithId('550e8400-e29b-41d4-a716-446655440003'),
+            $this->aBook(),
+            $this->aBook(),
+            $this->aBook(),
+            $this->aBook(),
         ];
 
         $this->givenACollectionWith(...$books);
@@ -43,7 +45,7 @@ final class BookCollectionTest extends TestCase
     /** @test */
     public function itShouldThrowAnExceptionWhenAddingAnExistingBook(): void
     {
-        $book = $this->aBookWithId('550e8400-e29b-41d4-a716-446655440000');
+        $book = $this->aBook();
 
         $this->givenTheElements([$book, $book]);
 
@@ -100,13 +102,15 @@ final class BookCollectionTest extends TestCase
         $this->collection = BookCollection::create(...$elements);
     }
 
-    private function aBookWithId(string $id): Book
+    private function aBook(): Book
     {
         return new Book(
-            new BookId($id),
+            BookId::random(),
             new BookTitle('whatever'),
-            new Isbn('978-9-6611-5391-1'),
-            AuthorIdCollection::create(new AuthorId('1'))
+            new Isbn(self::VALID_ISBN),
+            AuthorIdCollection::create(
+                AuthorId::random()
+            )
         );
     }
 }

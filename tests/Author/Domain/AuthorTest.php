@@ -18,11 +18,13 @@ final class AuthorTest extends TestCase
     /** @test */
     public function itShouldReturnItsId(): void
     {
-        $this->givenAnAuthorWithId('123');
+        $authorId = (string) AuthorId::random();
+
+        $this->givenAnAuthorWithId($authorId);
 
         $this->whenWeAskForItsId();
 
-        $this->thenItShouldReturn('123');
+        $this->thenItShouldReturn($authorId);
     }
 
     /** @test */
@@ -50,7 +52,7 @@ final class AuthorTest extends TestCase
         string $Name = null
     ): Author {
         return new Author(
-            new AuthorId($id ?? '123'),
+            $id ? new AuthorId($id) : AuthorId::random(),
             new AuthorName($Name ?? 'Pol Colomo')
         );
     }

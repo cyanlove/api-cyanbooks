@@ -16,6 +16,8 @@ use CyanBooks\Test\Shared\TestCase;
 
 final class BookFinderTest extends TestCase
 {
+    const VALID_ISBN = '978-9-6611-5391-1';
+
     private $repository;
     private $finder;
 
@@ -28,13 +30,17 @@ final class BookFinderTest extends TestCase
     /** @test */
     public function itShouldFindABook(): void
     {
-        $query = new BookFinderQuery('550e8400-e29b-41d4-a716-446655440000');
+        $bookId = BookId::random();
+
+        $query = new BookFinderQuery((string) $bookId);
 
         $book = new Book(
-            new BookId('550e8400-e29b-41d4-a716-446655440000'),
+            new BookId((string) $bookId),
             new BookTitle('olakease'),
-            new Isbn('978-9-6611-5391-1'),
-            AuthorIdCollection::create(new AuthorId('1'))
+            new Isbn(self::VALID_ISBN),
+            AuthorIdCollection::create(
+                AuthorId::random()
+            )
         );
 
         $this->repository
@@ -52,7 +58,7 @@ final class BookFinderTest extends TestCase
     /** @test */
     public function itShouldThrowAnExceptionWhenItCantFindABook(): void
     {
-        $query = new BookFinderQuery('550e8400-e29b-41d4-a716-446655440000');
+        $query = new BookFinderQuery((string) BookId::random());
 
         $this->repository
             ->shouldReceive('search')

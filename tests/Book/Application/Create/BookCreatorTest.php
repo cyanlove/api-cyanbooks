@@ -15,6 +15,8 @@ use CyanBooks\Test\Shared\TestCase;
 
 final class BookCreatorTest extends TestCase
 {
+    const VALID_ISBN = '978-9-6611-5391-1';
+
     private $repository;
     private $creator;
 
@@ -28,10 +30,13 @@ final class BookCreatorTest extends TestCase
     public function itShouldSaveABook(): void
     {
         $command = new BookCreatorCommand(
-            '550e8400-e29b-41d4-a716-446655440000',
+            (string) BookId::random(),
             'Un nuevo caso para: Pol Colom(b)o',
-            '978-9-6611-5391-1',
-            ['1', '2']
+            self::VALID_ISBN,
+            [
+                (string) AuthorId::random(),
+                (string) AuthorId::random(),
+            ]
         );
 
         $book = new Book(

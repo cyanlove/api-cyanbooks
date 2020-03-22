@@ -24,10 +24,10 @@ final class AuthorCollectionTest extends TestCase
     public function itShouldReturnAllAuthors(): void
     {
         $authors = [
-            $this->anAuthorWithId('1'),
-            $this->anAuthorWithId('2'),
-            $this->anAuthorWithId('3'),
-            $this->anAuthorWithId('4'),
+            $this->anAuthor(),
+            $this->anAuthor(),
+            $this->anAuthor(),
+            $this->anAuthor(),
         ];
 
         $this->givenACollectionWith(...$authors);
@@ -40,7 +40,7 @@ final class AuthorCollectionTest extends TestCase
     /** @test */
     public function itShouldThrowAnExceptionWhenAddingAnExistingAuthor(): void
     {
-        $author = $this->anAuthorWithId('1');
+        $author = $this->anAuthor();
 
         $this->givenTheElements([$author, $author]);
 
@@ -97,10 +97,10 @@ final class AuthorCollectionTest extends TestCase
         $this->collection = AuthorCollection::create(...$elements);
     }
 
-    private function anAuthorWithId(string $id): Author
+    private function anAuthor(): Author
     {
         return new Author(
-            new AuthorId($id),
+            AuthorId::random(),
             new AuthorName('whatever')
         );
     }

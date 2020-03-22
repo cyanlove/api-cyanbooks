@@ -12,6 +12,8 @@ use CyanBooks\Test\Shared\TestCase;
 
 final class BookTest extends TestCase
 {
+    const VALID_ISBN = '978-9-6611-5391-1';
+
     /** @var Book */
     private $book;
 
@@ -21,11 +23,13 @@ final class BookTest extends TestCase
     /** @test */
     public function itShouldReturnItsId(): void
     {
-        $this->givenABookWithId('550e8400-e29b-41d4-a716-446655440000');
+        $bookId = (string) BookId::random();
+
+        $this->givenABookWithId($bookId);
 
         $this->whenWeAskForItsId();
 
-        $this->thenItShouldReturn('550e8400-e29b-41d4-a716-446655440000');
+        $this->thenItShouldReturn($bookId);
     }
 
     /** @test */
@@ -41,17 +45,17 @@ final class BookTest extends TestCase
     /** @test */
     public function itShouldReturnItsIsbn(): void
     {
-        $this->givenABookWithIsbn('978-9-6611-5391-1');
+        $this->givenABookWithIsbn(self::VALID_ISBN);
 
         $this->whenWeAskForItsIsbn();
 
-        $this->thenItShouldReturn('978-9-6611-5391-1');
+        $this->thenItShouldReturn(self::VALID_ISBN);
     }
 
     /** @test */
     public function itShouldReturnItsAuthors(): void
     {
-        $id = (string) random_int(1, 99);
+        $id = (string) AuthorId::random();
 
         $this->givenABookWithAuthors($id);
 
@@ -67,9 +71,9 @@ final class BookTest extends TestCase
     /** @test */
     public function itShouldAddAnAuthor(): void
     {
-        $uri = 'Uri Ustrell';
+        $uri = (string) AuthorId::random();
 
-        $pol = 'Pol Colomo';
+        $pol = (string) AuthorId::random();
 
         $this->givenABookWithAuthors($uri);
 
@@ -86,9 +90,9 @@ final class BookTest extends TestCase
     /** @test */
     public function itShouldRemoveAnAuthor(): void
     {
-        $uri = 'Uri Ustrell';
+        $uri = (string) AuthorId::random();
 
-        $pol = 'Pol Colomo';
+        $pol = (string) AuthorId::random();
 
         $this->givenABookWithAuthors($uri, $pol);
 
@@ -142,11 +146,11 @@ final class BookTest extends TestCase
     {
         if (empty($ids)) {
             return [
-                new AuthorId('1'),
-                new AuthorId('2'),
-                new AuthorId('3'),
-                new AuthorId('4'),
-                new AuthorId('5'),
+                AuthorId::random(),
+                AuthorId::random(),
+                AuthorId::random(),
+                AuthorId::random(),
+                AuthorId::random(),
             ];
         }
         return array_map(

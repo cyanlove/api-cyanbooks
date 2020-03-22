@@ -2,14 +2,14 @@
 
 namespace CyanBooks\Shared\Author\Domain;
 
-use CyanBooks\Shared\Domain\InvalidStringValueObject;
+use CyanBooks\Shared\Domain\InvalidUuidValueObject;
 
-final class InvalidAuthorId extends InvalidStringValueObject
+final class InvalidAuthorId extends InvalidUuidValueObject
 {
     protected static function message(string $id): string
     {
         return sprintf(
-            'The id <%s> does not match the expected format',
+            'The id <%s> is not a valid AuthorId',
             $id
         );
     }
